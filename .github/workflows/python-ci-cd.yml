@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run tests
+      run: python -m unittest discover
+
+    - name: Build Docker image
+      run: docker build -t paperai-telegram-bot:latest .
+
+    - name: Login to Docker Hub (if necessary)
+      run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Push Docker image
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest
+
+    - name: Deploy to VDS
+      run: ssh user@your-vds-server "cd /projects/python/bots/telegram/PaperAI && docker pull ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest:latest && docker run -d -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest"
