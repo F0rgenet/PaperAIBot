@@ -2,12 +2,16 @@ import g4f
 
 
 class NeuralDocumentGenerator:
-    def __init__(self):
-        # Initialize the neural network model with the given model_path
+    def __init__(self, theme: str):
+        self.theme = theme
+
+    def generate_outline(self):
+        pass
+
+    def generate_paragraph(self):
         pass
 
     def generate_document(self, content, filename):
-        # Use the neural network model to generate a document from the content
         pass
 
 
