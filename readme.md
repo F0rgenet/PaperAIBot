@@ -1,6 +1,7 @@
 # PaperAI - Telegram Bot for Document Generation
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 [![CodeFactor](https://www.codefactor.io/repository/github/f0rgenet/paperai/badge)](https://www.codefactor.io/repository/github/f0rgenet/paperai)
+[![CI/CD Pipeline](https://github.com/F0rgenet/PaperAI/actions/workflows/python-ci-cd.yml/badge.svg)](https://github.com/F0rgenet/PaperAI/actions/workflows/python-ci-cd.yml)
 
 PaperAI is a Telegram bot that harnesses the power of neural networks to generate documents effortlessly. All you need to do is provide a topic, and PaperAI will deliver a document in either .docx or .pdf format.
 
