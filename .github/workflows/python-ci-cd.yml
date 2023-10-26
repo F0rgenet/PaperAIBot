@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,11 +19,19 @@ jobs:
     - name: Build Docker image
       run: docker build -t paperai-telegram-bot:latest .
 
-    - name: Login to Docker Hub (if necessary)
+    - name: Login to Docker Hub
       run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
     - name: Push Docker image
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest
+      run:
+        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest
 
     - name: Deploy to VDS
-      run: ssh user@your-vds-server "cd /projects/python/bots/telegram/PaperAI && docker pull ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest && docker run -d -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run:
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh -i ~/.ssh/id_rsa forgenet@185.154.194.54 "cd /projects/python/bots/telegram/PaperAI && docker pull ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest && docker run -d -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest"
