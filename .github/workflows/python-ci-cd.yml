@@ -37,7 +37,4 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run:
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh -i ~/.ssh/id_rsa forgenet@185.154.194.54 "cd /projects/python/bots/telegram/PaperAI && docker pull ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest && docker run -d -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest"
+        ssh -i <(echo "$SSH_PRIVATE_KEY") forgenet@185.154.194.54 "cd /projects/python/bots/telegram/PaperAI && docker pull ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest && docker run -d -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/paperai-telegram-bot:latest"
