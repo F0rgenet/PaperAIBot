@@ -13,6 +13,7 @@ from telegram_bot.handlers.callbacks import Menu, Report, report_fivem
 
 bot_token = '6308064091:AAH1U3grSp3rGRQG-47KbBFublyg4WI_B-o'
 bot = Bot(token=bot_token)
+
 router = Router()
 router.include_router(callbacks_router)
 dispatcher = Dispatcher()

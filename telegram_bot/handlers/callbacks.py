@@ -83,7 +83,7 @@ async def report_theme(message: types.Message, state: FSMContext):
     await state.update_data(theme=message.text)
 
 
-def task_format(state: FSMContext):
+def task_format():
     format_btn = InlineKeyboardBuilder()
     format_btn.add(
         types.InlineKeyboardButton(
