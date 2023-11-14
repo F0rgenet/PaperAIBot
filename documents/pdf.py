@@ -2,5 +2,5 @@ from .base import DocumentBuilder
 
 
 class PdfBuilder(DocumentBuilder):
-    def create(self, content: str, filename: str):
+    def create(self, filename: str, content: str):
         pass

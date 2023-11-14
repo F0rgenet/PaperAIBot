@@ -3,6 +3,6 @@ from abc import ABC, abstractmethod
 
 class DocumentBuilder(ABC):
     @abstractmethod
-    def create(self, content: str, filename: str):
+    def create(self, filename: str, content: str):
         pass
 
